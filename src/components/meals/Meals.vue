@@ -17,8 +17,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "./../../../styles/settings.scss";
+
 .meal {
   display: flex;
+  flex-direction: column;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@media (min-width: $tablet-breakpoint) {
+  .meal {
+    flex-direction: row;
+  }
 }
 </style>
 

@@ -1,8 +1,14 @@
 <template>
   <li>
-    <p>{{ item.name }}</p>
-    <p>{{ item.amount }}</p>
-    <p>{{ item.unit }}</p>
+    <div class="item">
+      <p>{{ item.name }}</p>
+    </div>
+    <div class="item">
+      <p>{{ item.amount }}</p>
+    </div>
+    <div class="item">
+      <p>{{ item.unit }}</p>
+    </div>
   </li>
 </template>
 
@@ -15,5 +21,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "./../../../styles/settings.scss";
+.item {
+  display: flex;
+  justify-content: flex-start;
+}
 </style>
 

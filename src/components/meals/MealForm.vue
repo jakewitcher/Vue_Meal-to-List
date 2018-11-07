@@ -1,25 +1,25 @@
 <template>
-  <div>
+  <div class="mealform">
     <h2 class="mealform__header">Create a New Meal</h2>
-    <div class="mealform">
+    <div class="mealform__form">
         <div class="mealform__nameinputfield">
           <p>Meal Name</p>
-          <input type="text" v-model.lazy="mealName">
+          <input class="mealform__nameinputfield--input" type="text" v-model.lazy="mealName">
         </div>
         <div class="mealform__iteminputfields">
           <div>
             <p>Item</p>
-            <input type="text" v-model="itemName">
+            <input class="mealform__iteminputfields--input" type="text" v-model="itemName">
           </div>
 
           <div>
             <p>Amount</p>
-            <input type="number" v-model="amount">
+            <input class="mealform__iteminputfields--input" type="number" v-model="amount">
           </div>
 
           <div>
             <p>Unit</p>
-            <select name="unit" v-model="unit">
+            <select class="mealform__iteminputfields--input mealform__iteminputfields--dropdown" name="unit" v-model="unit">
               <option value="pound(s)">pound(s)</option>
               <option value="ounce(s)">ounce(s)</option>
               <option value="gallon(s)">gallons</option>
@@ -32,11 +32,11 @@
             </select>
           </div>
           <div class="mealform__button">
-            <button @click="addItem">Add Item</button>
+            <button class="mealform__button--add" @click="addItem">Add Item</button>
           </div>
         </div>
         <div>
-          <button>Save Meal</button>
+          <button class="mealform__button--save">Save Meal</button>
         </div>
     </div>
 
@@ -86,29 +86,91 @@ export default {
 <style lang="scss" scoped>
 @import "./../../../styles/settings.scss";
 
+button {
+  border: none;
+  border-radius: 3px;
+  padding: 5px;
+}
+
 .mealform {
   background: $off-white;
+  box-shadow: 0 0 5px lighten($md-brown, 20%);
+  margin: $s-size 0;
+}
+
+.mealform__form {
   padding: $s-size;
 }
 
 .mealform__button {
-  align-items: flex-end;
   display: flex;
+  margin-top: $s-size;
+}
+
+.mealform__button--save {
+  background: $light-blue;
+  border: 1px solid darken($light-blue, 15%);
+  color: $white;
+  width: 100%;
+}
+
+.mealform__button--add {
+  background: lighten($md-orange, 15%);
+  border: 1px solid $md-orange;
+  color: $md-brown;
 }
 
 .mealform__header {
-  background: $off-white;
   color: $md-brown;
-  font-size: $m-size;
+  font-size: $ml-size;
   margin: 0;
-  padding: $s-size;
+  padding: $s-size $l-size;
 }
 
 .mealform__iteminputfields {
+  border: 1px solid $md-brown;
+  color: $md-brown;
   display: flex;
+  flex-direction: column;
+  font-size: $s-size;
+  margin: $s-size 0;
+  padding: $s-size;
+}
+
+.mealform__iteminputfields--input {
+  border: 1px solid $md-brown;
+  color: $md-brown;
+  height: $m-size;
+  width: 100%;
+}
+
+.mealform__iteminputfields--input:focus {
+  border: 1px solid $md-orange;
+  box-shadow: 0 0 2px $off-white;
+  outline: none;
+}
+
+.mealform__iteminputfields--dropdown {
+  height: $ml-size;
 }
 
 .mealform__nameinputfield {
   color: $md-brown;
+  display: flex;
+  flex-direction: column;
+  font-size: $s-size;
+  padding: 0;
+}
+
+.mealform__nameinputfield--input {
+  border: 1px solid $md-brown;
+  color: $md-brown;
+  height: $m-size;
+}
+
+.mealform__nameinputfield--input:focus {
+  border: 1px solid $md-orange;
+  box-shadow: 0 0 2px $off-white;
+  outline: none;
 }
 </style>
