@@ -36,7 +36,7 @@
           </div>
         </div>
         <div>
-          <button class="mealform__button--save">Save Meal</button>
+          <button class="mealform__button--save" @click="saveMeal(mealName, itemList); resetMeal();">Save Meal</button>
         </div>
     </div>
 
@@ -46,6 +46,9 @@
 <script>
 import { itemBus, mealBus } from "./../../main";
 export default {
+  props: {
+    saveMeal: Function
+  },
   data: function() {
     return {
       mealName: "",
@@ -63,6 +66,10 @@ export default {
       this.itemName = "";
       this.amount = null;
       this.unit = "";
+    },
+    resetMeal() {
+      this.mealName = "";
+      this.itemList = [];
     },
     addItem() {
       let newItem = {

@@ -1,37 +1,38 @@
 <template>
   <div class="itemlist">
-    <h1 class="itemlist__header">{{ mealName || "New Meal" }}</h1>
+    <h1 class="itemlist__header">{{ groceryName || "New Grocery List" }}</h1>
     <ul class="itemlist__body" :class=" {'itemlist__body--border': itemList.length > 0}">
-      <app-meal-item class="itemlist__item" v-for="item in itemList" :key="item.name" :item="item"></app-meal-item>
+      <app-grocery-item class="itemlist__item" v-for="item in itemList" :key="item.name" :item="item"></app-grocery-item>
     </ul>
   </div>
 </template>
 
 
 <script>
-import { itemBus, mealBus } from "./../../main";
-import MealItem from "./MealItem.vue";
+import { mealBus, groceryBus } from "./../../main";
+import GroceryItem from "./GroceryItem.vue";
 export default {
   components: {
-    "app-meal-item": MealItem
+    "app-grocery-item": GroceryItem
   },
   data: function() {
     return {
       itemList: [],
-      mealName: ""
+      mealList: [],
+      groceryName: ""
     };
   },
   created() {
-    itemBus.$on("itemAdded", items => {
-      this.itemList = items;
+    mealBus.$on("mealAdded", meals => {
+      this.mealList = meals;
     });
-    mealBus.$on("mealNamed", name => {
-      this.mealName = name;
+    groceryBus.$on("groceryNamed", name => {
+      this.groceryName = name;
     });
   },
   watch: {
-    mealName() {
-      if (this.mealName === "") {
+    groceryName() {
+      if (this.groceryName === "") {
         this.itemList = [];
       }
     }

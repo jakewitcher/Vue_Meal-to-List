@@ -1,12 +1,35 @@
 <template>
   <div>
     <app-header></app-header>
-    <app-meals></app-meals>
+    <div>
+      <button class="form-tabs" @click="newMeal">Create a new meal</button>
+      <button class="form-tabs" @click="newGrocery">Create a new grocery list</button>
+      <app-meals v-show="mealForm"></app-meals>
+      <app-groceries v-show="groceryForm"></app-groceries>
+    </div>
+
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data: function() {
+    return {
+      mealForm: true,
+      groceryForm: false
+    };
+  },
+  methods: {
+    newMeal() {
+      this.mealForm = true;
+      this.groceryForm = false;
+    },
+    newGrocery() {
+      this.groceryForm = true;
+      this.mealForm = false;
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -20,6 +43,16 @@ body {
 
 button {
   cursor: pointer;
+}
+
+.form-tabs {
+  background: $light-blue;
+  border: none;
+  border: 1px solid darken($light-blue, 15%);
+  border-radius: 3px;
+  color: $white;
+  padding: 5px;
+  margin: $s-size;
 }
 
 button:disabled {
