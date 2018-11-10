@@ -12,18 +12,20 @@
             <select class="groceryform__iteminputfields--input groceryform__iteminputfields--dropdown"
                     name="selectedMeal"
                     v-model="selectedMeal"
-                    v-for="meal in mealList"
-                    :key="meal.name"
                     required>
-              <option :value="meal">{{ meal.name }}</option>
+              <option :value="meal"
+                      v-for="meal in mealList"
+                      :key="meal.name"
+              >{{ meal.name }}
+              </option>
             </select>
           </div>
           <div class="groceryform__button">
-            <button class="groceryform__button--add" @click="addMeal(selectedMeal)">Add Meal</button>
+            <button class="groceryform__button--add" @click="addToList(); mealAdded();">Add Meal</button>
           </div>
         </div>
         <div>
-          <button class="groceryform__button--save" @click="saveGrocery(groceryName, selectedMeals, itemList); resetMeals();">Save Grocery List</button>
+          <button class="groceryform__button--save" @click="saveGrocery(groceryName, itemList); resetMeals();">Save Grocery List</button>
         </div>
     </div>
 
@@ -41,21 +43,37 @@ export default {
       groceryName: "",
       mealList: [],
       itemList: [],
-      selectedMeal: null,
-      selectedMeals: []
+      selectedMeal: null
     };
   },
   methods: {
     resetMeals() {
       this.mealName = "";
-      this.selectedMeals = [];
-    },
-    addMeal() {
-      this.selectedMeals.push(this.selectedMeal);
-      this.mealAdded();
     },
     mealAdded() {
-      mealBus.$emit("mealAdded", this.selectedMeals);
+      mealBus.$emit("mealAdded", this.itemList);
+    },
+    addToList() {
+      let meal = this.selectedMeal.itemList;
+      let list = this.itemList;
+      let newList = [];
+      if (list.length === 0) {
+        newList = meal.map(item => {
+          let itemCopy = Object.assign({}, item);
+          return itemCopy;
+        });
+      } else {
+        list.reduce((l, item) => {
+          let isItem = meal.filter(i => i.name === item.name);
+          if (isItem.length !== 0) {
+            item.amount = Number(item.amount) + Number(isItem[0].amount);
+            l.push(Object.assign({}, item));
+          } else {
+            l.push(Object.assign({}, item));
+          }
+        }, newList);
+      }
+      this.itemList = newList;
     }
   },
   created() {

@@ -18,13 +18,12 @@ export default {
   data: function() {
     return {
       itemList: [],
-      mealList: [],
       groceryName: ""
     };
   },
   created() {
-    mealBus.$on("mealAdded", meals => {
-      this.mealList = meals;
+    mealBus.$on("mealAdded", itemList => {
+      this.itemList = itemList;
     });
     groceryBus.$on("groceryNamed", name => {
       this.groceryName = name;
