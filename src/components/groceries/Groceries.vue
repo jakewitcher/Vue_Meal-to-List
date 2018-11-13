@@ -19,11 +19,10 @@ export default {
     "app-grocery-items": GroceryItems
   },
   methods: {
-    saveGrocery(grocery, meals, items) {
+    saveGrocery(name, items) {
       let newGrocery = {
-        name: grocery,
-        mealList: meals,
-        itemLists: items
+        name,
+        items
       };
       this.groceries.push(newGrocery);
     }

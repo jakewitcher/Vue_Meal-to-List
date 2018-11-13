@@ -81,7 +81,7 @@ export default {
 
 @media (min-width: $tablet-breakpoint) {
   .itemlist {
-    margin: $s-size 0 $s-size $s-size;
+    margin: 0 0 0 $s-size;
   }
 }
 </style>

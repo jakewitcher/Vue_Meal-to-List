@@ -2,8 +2,10 @@
   <div>
     <app-header></app-header>
     <div>
-      <button class="form-tabs" @click="newMeal">Create a new meal</button>
-      <button class="form-tabs" @click="newGrocery">Create a new grocery list</button>
+      <div class="form-tabs">
+        <button class="form-tabs__button form-tabs__button--meal" @click="newMeal">New meal</button>
+        <button class="form-tabs__button form-tabs__button--grocery" @click="newGrocery">New grocery list</button>
+      </div>
       <app-meals v-show="mealForm"></app-meals>
       <app-groceries v-show="groceryForm"></app-groceries>
     </div>
@@ -46,17 +48,28 @@ button {
 }
 
 .form-tabs {
+  display: flex;
+  padding: 0;
+  width: 100%;
+}
+
+.form-tabs__button {
   background: $light-blue;
   border: none;
   border: 1px solid darken($light-blue, 15%);
-  border-radius: 3px;
+  border-radius: 10px 10px 0 0;
   color: $white;
   padding: 5px;
-  margin: $s-size;
+  margin: $s-size $s-size 0 $s-size;
+  width: 100%;
 }
 
-button:disabled {
-  cursor: default;
+.form-tabs__button--meal {
+  margin-right: 2.5px;
+}
+
+.form-tabs__button--grocery {
+  margin-left: 2.5px;
 }
 
 html {

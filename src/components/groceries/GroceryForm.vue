@@ -25,7 +25,7 @@
           </div>
         </div>
         <div>
-          <button class="groceryform__button--save" @click="saveGrocery(groceryName, itemList); resetMeals();">Save Grocery List</button>
+          <button class="groceryform__button--save" @click="saveGrocery(groceryName, itemList); resetGrocery();">Save Grocery List</button>
         </div>
     </div>
 
@@ -47,14 +47,15 @@ export default {
     };
   },
   methods: {
-    resetMeals() {
-      this.mealName = "";
+    resetGrocery() {
+      this.groceryName = "";
+      this.itemList = [];
     },
     mealAdded() {
       mealBus.$emit("mealAdded", this.itemList);
     },
     addToList() {
-      let meal = this.selectedMeal.itemList;
+      let meal = this.selectedMeal.items;
       let list = this.itemList;
       let newList = [];
       if (list.length === 0) {
@@ -63,15 +64,26 @@ export default {
           return itemCopy;
         });
       } else {
-        list.reduce((l, item) => {
+        list.forEach(item => {
           let isItem = meal.filter(i => i.name === item.name);
           if (isItem.length !== 0) {
             item.amount = Number(item.amount) + Number(isItem[0].amount);
-            l.push(Object.assign({}, item));
+            newList.push(Object.assign({}, item));
+            return item;
           } else {
-            l.push(Object.assign({}, item));
+            newList.push(Object.assign({}, item));
+            return item;
           }
-        }, newList);
+        });
+        meal.forEach(m => {
+          let isItem = list.filter(n => n.name === m.name);
+          if (isItem.length === 0) {
+            newList.push(Object.assign({}, m));
+            return m;
+          } else {
+            return m;
+          }
+        });
       }
       this.itemList = newList;
     }
@@ -101,7 +113,7 @@ button {
 .groceryform {
   background: $off-white;
   box-shadow: 0 0 5px lighten($md-brown, 20%);
-  margin: $s-size 0;
+  margin: 0;
 }
 
 .groceryform__form {

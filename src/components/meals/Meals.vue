@@ -20,10 +20,10 @@ export default {
     "app-meal-items": MealItems
   },
   methods: {
-    saveMeal(meal, items) {
+    saveMeal(name, items) {
       let newMeal = {
-        name: meal,
-        itemList: items
+        name,
+        items
       };
       this.meals.push(newMeal);
     }

@@ -102,7 +102,7 @@ button {
 .mealform {
   background: $off-white;
   box-shadow: 0 0 5px lighten($md-brown, 20%);
-  margin: $s-size 0;
+  margin: 0;
 }
 
 .mealform__form {
